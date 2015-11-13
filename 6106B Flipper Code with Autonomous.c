@@ -51,35 +51,50 @@ void pre_auton()
 /////////////////////////////////////////////////////////////////////////////////////////
 task armdown()
 {
-motor[flip1] = 127;
-motor[flip2] = 127;
-motor[flip3] = 127;
-motor[flip4] = 127;
-wait1Msec(2000);
-}
-
-task armup(){
+while(true)
+{
 motor[flip1] = -127;
 motor[flip2] = -127;
 motor[flip3] = -127;
 motor[flip4] = -127;
+wait1Msec(2500);
+}
+
+}
+
+task armup(){
+while(true){
+
+motor[flip1] = 127;
+motor[flip2] = 127;
+motor[flip3] = 127;
+motor[flip4] = 127;
 wait1Msec(750);
+}
+
+}
+
+task driveFwd{
+
+motor[backLeft] = 127;
+motor[frontLeft] = -127;
+motor[backRight] = 127;
+motor[frontRight] = 127;
+wait1Msec(4000);
+
 }
 
 task autonomous()
 {
 
-motor[backLeft] = 127;
-motor[frontLeft] = 127;
-motor[backRight] = 127;
-motor[frontRight] = 127;
-wait1Msec(4500);
+startTask(driveFwd);
+
 
 startTask(armdown);               //Pull Arm Down
 
-while(true){
-wait1Msec(500);
-motor[servo] = -125
+while(armdown){
+wait1Msec(750);
+motor[servo] = -125;
 wait1Msec(500);
 motor[servo] = 95;
 }
@@ -90,20 +105,20 @@ startTask(armup);
 
 startTask(armdown);               //Pull Arm Down
 
-while(true){
+while(armdown){
 wait1Msec(500);
-motor[servo] = -125
+motor[servo] = -125;
 wait1Msec(500);
 motor[servo] = 95;
 }
 
+bool armdown = false;
 startTask(armup);
-
 
 
 startTask(armdown);               //Pull Arm Down
 
-while(true){
+while(armdown){
 wait1Msec(500);
 motor[servo] = -125
 wait1Msec(500);
